@@ -160,8 +160,14 @@ class Orchestrator:
             appium_client.execute_action({"type": "input", "value": "\\n"})
 
     def summarize_session(self):
-        if not self.action_history: return
-        summary = gemini_client.generate_text(f"Summarize these actions for a blind user: {self.action_history}")
+        if not self.action_history: 
+            return
+        
+        result = gemini_client.generate_json(
+            prompt=f"Actions taken: {self.action_history}",
+            system_prompt="Summarize these actions in 1-2 sentences for a blind user. Return JSON with key 'summary'."
+        )
+        summary = result.get('summary', 'Task completed.')
         voice.speak(summary)
 
     def summarize_and_stop(self):

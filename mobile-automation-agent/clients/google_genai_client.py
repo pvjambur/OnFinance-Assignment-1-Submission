@@ -73,6 +73,30 @@ class GoogleGenAIClient:
             logger.error(f"GenAI Generation Error: {e}")
             return {}
 
+    def generate_text(self, prompt: str, system_prompt: str = "") -> str:
+        """Generate plain text response"""
+        if not self.client:
+            logger.error("Client is not initialized.")
+            return "Unable to generate summary."
+
+        try:
+            full_prompt = f"{system_prompt}\n\n{prompt}" if system_prompt else prompt
+            
+            response = self.client.models.generate_content(
+                model=self.model_name,
+                contents=full_prompt
+            )
+            
+            if not response or not response.text:
+                logger.error("Empty response from Gemini")
+                return "No summary available."
+                
+            return response.text.strip()
+            
+        except Exception as e:
+            logger.error(f"GenAI Text Generation Error: {e}")
+            return "Error generating summary."
+
     def generate_json(self, prompt: str, system_prompt: str = "") -> Dict[str, Any]:
         """Generate structured JSON response"""
         if not self.client:
