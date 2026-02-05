@@ -9,31 +9,30 @@ logger = logging.getLogger(__name__)
 class AuthAgent(BaseAgent):
     def __init__(self):
         super().__init__('auth_agent')
+        # Fast keywords to trigger Auth Mode
+        self.auth_keywords = ["sign in", "log in", "username", "password", "email address", "forgot password"]
 
-    def run(self, screen_state: Dict[str, Any]) -> Dict[str, Any]:
+    def is_login_screen(self, screen_state: Dict[str, Any]) -> bool:
         """
-        Analyze if the current screen is a login screen and what credentials are needed.
+        Fast check: Does the screen look like a login page?
         """
-        if screen_state.get('screen_type') != 'login':
-            return {"is_auth_screen": False}
-
-        logger.info("🔒 Analyzing Auth Screen")
-
-        prompt = f"""
-        Screen Elements: {screen_state.get('elements')}
-        Text Content: {screen_state.get('text_content')}
+        visible_text = [item['text'].lower() for item in screen_state.get('ocr_results', [])]
         
-        Identify input fields and required credentials.
-        """
+        # 1. Fast Keyword Match (Instant)
+        matches = [word for word in self.auth_keywords if any(word in t for t in visible_text)]
+        
+        # If we see "Password" AND ("Sign In" or "Log In"), it's definitely a login screen
+        has_password = any("password" in t for t in visible_text)
+        has_signin = any("sign in" in t for t in visible_text) or any("log in" in t for t in visible_text)
+        
+        if has_password and has_signin:
+            logger.info("🔒 Auth Keyword Match detected")
+            return True
+            
+        return False
 
-        response = gemini_client.generate_json(
-            prompt=prompt,
-            system_prompt=self.system_prompt
-        )
-        
-        if response.get('is_auth_screen'):
-            logger.info(f"🔑 Auth Required: {response.get('auth_type')}")
-        
-        return response
+    def run(self, *args, **kwargs):
+        # Legacy method support if needed
+        pass
 
 auth_agent = AuthAgent()

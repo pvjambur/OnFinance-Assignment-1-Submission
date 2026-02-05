@@ -3574,3 +3574,439 @@ AFC is enabled with max remote calls: 10.
 👀 Analyzing Screen: latest_screenshot.png
 🔍 OCR found 39 text elements.
 AFC is enabled with max remote calls: 10.
+🚀 Mobile Agent Online
+✅ Found ANDROID_HOME: C:\Users\jambu\AppData\Local\Android\Sdk
+🏠 Connecting to Local Appium (Emulator)...
+✅ Appium Driver Initialized Successfully
+🤖 Speaking: I am ready. What is your command?
+🎤 Listening...
+🗣️ User (Whisper Local): โอ้ พันกำรัง
+🤖 Speaking: Working on: โอ้ พันกำรัง
+--- Step 1 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Tapping YouTube
+📍 Found 'YouTube' at (801, 430)
+🦾 Executing Action: tap | Data: {'type': 'tap', 'target': 'YouTube', 'coordinates': (801, 430)}
+--- Step 2 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Typing โอ้ พันกำรัง
+🦾 Executing Action: input | Data: {'type': 'input', 'value': 'โอ้ พันกำรัง'}
+Using ADB fallback for text input
+--- Step 3 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Tapping Google Contacts
+📍 Found 'Google Contacts' at (466, 132)
+🦾 Executing Action: tap | Data: {'type': 'tap', 'target': 'Google Contacts', 'coordinates': (466, 132)}
+--- Step 4 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Typing โอ้ พันกำรัง
+🦾 Executing Action: input | Data: {'type': 'input', 'value': 'โอ้ พันกำรัง'}
+Using ADB fallback for text input
+--- Step 5 ---
+AFC is enabled with max remote calls: 10.
+🦾 Executing Action: finish | Data: {'type': 'finish'}
+🎉 Task finished.
+🤖 Speaking: Task finished.
+🚀 Mobile Agent Online (Continuous Mode)
+✅ Found ANDROID_HOME: C:\Users\jambu\AppData\Local\Android\Sdk
+🏠 Connecting to Local Appium (Emulator)...
+✅ Appium Driver Initialized Successfully
+🤖 Speaking: I am online. What should I do?
+🎤 Listening for command...
+🎤 Listening...
+🗣️ User (Whisper Local):  Radios pergi !
+🤖 Speaking: Starting:  Radios pergi !
+--- Step 1 ---
+🚀 Mobile Agent Online (Continuous Mode)
+✅ Found ANDROID_HOME: C:\Users\jambu\AppData\Local\Android\Sdk
+🏠 Connecting to Local Appium (Emulator)...
+✅ Appium Driver Initialized Successfully
+🤖 Speaking: I am online. What should I do?
+🎤 Listening for command...
+🎤 Listening...
+🗣️ User (Whisper Local):  Open you do.
+🤖 Speaking: Starting:  Open you do.
+--- Step 1 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Tapping YouTube
+🦾 Executing Action: tap | Data: {'type': 'tap', 'target': 'YouTube', 'coordinates': (801, 430)}
+👂 Checking for stop...
+🎤 Listening...
+Listening timed out (silence)
+--- Step 2 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Tapping Contacts
+🦾 Executing Action: tap | Data: {'type': 'tap', 'target': 'Contacts', 'coordinates': (364, 134)}
+👂 Checking for stop...
+🎤 Listening...
+Listening timed out (silence)
+--- Step 3 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Tapping @0006
+🦾 Executing Action: tap | Data: {'type': 'tap', 'target': '@0006', 'coordinates': (456, 1540)}
+👂 Checking for stop...
+🎤 Listening...
+🗣️ User (Whisper Local):  Stop!
+🤖 Speaking: Stopping as requested.
+🚀 Mobile Agent Online (Continuous Mode)
+✅ Found ANDROID_HOME: C:\Users\jambu\AppData\Local\Android\Sdk
+🏠 Connecting to Local Appium (Emulator)...
+✅ Appium Driver Initialized Successfully
+🤖 Speaking: I am online. What should I do?
+🎤 Listening for command...
+🎤 Listening...
+🗣️ User (Whisper Local): 
+🎤 Listening for command...
+🎤 Listening...
+🗣️ User (Whisper Local): โอ้ เป็น camera
+🤖 Speaking: Starting: โอ้ เป็น camera
+--- Step 1 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Tapping Camera
+🦾 Executing Action: tap | Data: {'type': 'tap', 'target': 'Camera', 'coordinates': (466, 792)}
+👂 Checking for stop...
+--- Step 2 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Scrolling
+🦾 Executing Action: scroll | Data: {'type': 'scroll'}
+👂 Checking for stop...
+--- Step 3 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Tapping NEXT
+🦾 Executing Action: tap | Data: {'type': 'tap', 'target': 'NEXT', 'coordinates': (468, 1763)}
+👂 Checking for stop...
+--- Step 4 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Tapping NEXT
+🦾 Executing Action: tap | Data: {'type': 'tap', 'target': 'NEXT', 'coordinates': (468, 1763)}
+👂 Checking for stop...
+--- Step 5 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Tapping NEXT
+🦾 Executing Action: tap | Data: {'type': 'tap', 'target': 'NEXT', 'coordinates': (468, 1763)}
+👂 Checking for stop...
+--- Step 6 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Tapping NEXT
+🦾 Executing Action: tap | Data: {'type': 'tap', 'target': 'NEXT', 'coordinates': (468, 1763)}
+👂 Checking for stop...
+--- Step 7 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Tapping While using the app
+🦾 Executing Action: tap | Data: {'type': 'tap', 'target': 'While using the app', 'coordinates': (361, 1139)}
+👂 Checking for stop...
+--- Step 8 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Tapping While using the app
+🦾 Executing Action: tap | Data: {'type': 'tap', 'target': 'While using the app', 'coordinates': (361, 1139)}
+👂 Checking for stop...
+🗣️ User (Whisper Local):  Thank you all for your time.
+--- Step 9 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Typing camera
+🦾 Executing Action: input | Data: {'type': 'input', 'value': 'camera'}
+Using ADB fallback for text input
+👂 Checking for stop...
+🗣️ User (Whisper Local): 
+--- Step 10 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Tapping manage
+🦾 Executing Action: tap | Data: {'type': 'tap', 'target': 'manage', 'coordinates': (39, 1496)}
+👂 Checking for stop...
+🗣️ User (Whisper Local):  Stop, stop.
+🤖 Speaking: Stopping as requested.
+🚀 Mobile Agent Online (Continuous Mode)
+✅ Found ANDROID_HOME: C:\Users\jambu\AppData\Local\Android\Sdk
+🏠 Connecting to Local Appium (Emulator)...
+✅ Appium Driver Initialized Successfully
+🤖 Speaking: I am online. What should I do?
+🎤 Listening for command...
+🎤 Listening...
+🗣️ User (Whisper Local):  Can anymore do.
+🤖 Speaking: Starting:  Can anymore do.
+--- Step 1 ---
+👂 Checking for stop...
+--- Step 2 ---
+👂 Checking for stop...
+--- Step 3 ---
+👂 Checking for stop...
+🗣️ User (Whisper Local):  Stop, stop, stop.
+🤖 Speaking: Stopping as requested.
+🤖 Speaking: AI unavailable.
+🤖 Speaking: I am ready for the next command.
+🎤 Listening for command...
+🎤 Listening...
+🗣️ User (Whisper Local):  Scroll down and
+🤖 Speaking: Starting:  Scroll down and
+--- Step 1 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 2 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 3 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 4 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 5 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 6 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 7 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 8 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 9 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 10 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 11 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 12 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 13 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 14 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+🤖 Speaking: I am ready for the next command.
+🎤 Listening for command...
+🎤 Listening...
+🗣️ User (Whisper Local): 
+🎤 Listening for command...
+🎤 Listening...
+Listening timed out (silence)
+🎤 Listening for command...
+🎤 Listening...
+🗣️ User (Whisper Local): 
+🎤 Listening for command...
+🎤 Listening...
+🗣️ User (Whisper Local): 
+🎤 Listening for command...
+🎤 Listening...
+🚀 Mobile Agent Online (Continuous Mode)
+✅ Found ANDROID_HOME: C:\Users\jambu\AppData\Local\Android\Sdk
+🏠 Connecting to Local Appium (Emulator)...
+✅ Appium Driver Initialized Successfully
+🤖 Speaking: I am online. What should I do?
+🎤 Listening for command...
+🎤 Listening...
+🗣️ User (Whisper Local):  Scroll down and open your video.
+🤖 Speaking: Starting:  Scroll down and open your video.
+--- Step 1 ---
+👂 Checking for stop...
+--- Step 2 ---
+👂 Checking for stop...
+--- Step 3 ---
+👂 Checking for stop...
+--- Step 4 ---
+👂 Checking for stop...
+--- Step 5 ---
+👂 Checking for stop...
+🗣️ User (Whisper Local): 
+--- Step 6 ---
+🚀 Mobile Agent Online (Continuous Mode)
+✅ Found ANDROID_HOME: C:\Users\jambu\AppData\Local\Android\Sdk
+🏠 Connecting to Local Appium (Emulator)...
+✅ Appium Driver Initialized Successfully
+🤖 Speaking: I am online. What should I do?
+🎤 Listening for command...
+🎤 Listening...
+🗣️ User (Whisper Local):  open YouTube.
+🤖 Speaking: Starting:  open YouTube.
+--- Step 1 ---
+👂 Checking for stop...
+--- Step 2 ---
+👂 Checking for stop...
+--- Step 3 ---
+👂 Checking for stop...
+🗣️ User (Whisper Local): 
+--- Step 4 ---
+👂 Checking for stop...
+--- Step 5 ---
+👂 Checking for stop...
+🗣️ User (Whisper Local): 
+--- Step 6 ---
+👂 Checking for stop...
+🗣️ User (Whisper Local): 
+--- Step 7 ---
+👂 Checking for stop...
+--- Step 8 ---
+👂 Checking for stop...
+--- Step 9 ---
+👂 Checking for stop...
+--- Step 10 ---
+👂 Checking for stop...
+--- Step 11 ---
+👂 Checking for stop...
+--- Step 12 ---
+👂 Checking for stop...
+--- Step 13 ---
+👂 Checking for stop...
+--- Step 14 ---
+👂 Checking for stop...
+🚀 Mobile Agent Online (Continuous Mode)
+✅ Found ANDROID_HOME: C:\Users\jambu\AppData\Local\Android\Sdk
+🏠 Connecting to Local Appium (Emulator)...
+✅ Appium Driver Initialized Successfully
+🤖 Speaking: I am online. What should I do?
+🎤 Listening for command...
+🎤 Listening...
+🗣️ User (Whisper Local):  Open YouTube.
+🤖 Speaking: Starting:  Open YouTube.
+--- Step 1 ---
+🚀 Mobile Agent Online (Continuous Mode)
+✅ Found ANDROID_HOME: C:\Users\jambu\AppData\Local\Android\Sdk
+🏠 Connecting to Local Appium (Emulator)...
+✅ Appium Driver Initialized Successfully
+🤖 Speaking: I am online. What should I do?
+🎤 Listening for command...
+🎤 Listening...
+Listening timed out (silence)
+🎤 Listening for command...
+🎤 Listening...
+🗣️ User (Whisper Local):  Open YouTube.
+🤖 Speaking: Starting:  Open YouTube.
+--- Step 1 ---
+🚀 Mobile Agent Online (Continuous Mode)
+✅ Found ANDROID_HOME: C:\Users\jambu\AppData\Local\Android\Sdk
+🏠 Connecting to Local Appium (Emulator)...
+✅ Appium Driver Initialized Successfully
+🤖 Speaking: I am online. What should I do?
+🎤 Listening for command...
+🎤 Listening...
+🗣️ User (Whisper Local):  Open YouTube.
+🤖 Speaking: Starting:  Open YouTube.
+--- Step 1 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Tapping YouTube
+🦾 Executing Action: tap | Data: {'type': 'tap', 'target': 'YouTube', 'coordinates': (801, 430)}
+👂 Checking for stop...
+🎤 Listening...
+Listening timed out (silence)
+--- Step 2 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Tapping Search
+🦾 Executing Action: tap | Data: {'type': 'tap', 'target': 'Search', 'coordinates': (221, 132)}
+👂 Checking for stop...
+🎤 Listening...
+Listening timed out (silence)
+--- Step 3 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Scrolling
+🦾 Executing Action: scroll | Data: {'type': 'scroll'}
+👂 Checking for stop...
+🎤 Listening...
+🗣️ User (Whisper Local): 
+--- Step 4 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Typing YouTube
+🦾 Executing Action: input | Data: {'type': 'input', 'value': 'YouTube'}
+👂 Checking for stop...
+🎤 Listening...
+Listening timed out (silence)
+--- Step 5 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Tapping YouTube
+🦾 Executing Action: tap | Data: {'type': 'tap', 'target': 'YouTube', 'coordinates': (187, 133)}
+👂 Checking for stop...
+🎤 Listening...
+Listening timed out (silence)
+--- Step 6 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Tapping YouTube
+🦾 Executing Action: tap | Data: {'type': 'tap', 'target': 'YouTube', 'coordinates': (187, 133)}
+👂 Checking for stop...
+🎤 Listening...
+Listening timed out (silence)
+--- Step 7 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Tapping YouTube
+🦾 Executing Action: tap | Data: {'type': 'tap', 'target': 'YouTube', 'coordinates': (187, 133)}
+👂 Checking for stop...
+🎤 Listening...
+Listening timed out (silence)
+--- Step 8 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Task complete.
