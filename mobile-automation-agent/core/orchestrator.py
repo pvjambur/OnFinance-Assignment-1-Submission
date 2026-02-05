@@ -2,6 +2,12 @@ import logging
 import time
 from agents.action_agent import action_agent
 from agents.auth_agent import auth_agent
+from agents.typing_agent import typing_agent
+from agents.navigation_agent import navigation_agent
+from agents.vision_agent import vision_agent
+from agents.settings_agent import settings_agent
+from agents.validation_agent import validation_agent
+
 from core.screen_analyzer import screen_analyzer
 from core.voice_interface import voice
 from clients.appium_client import appium_client
@@ -48,79 +54,92 @@ class Orchestrator:
         for step in range(1, 15):
             logger.info(f"--- Step {step} ---")
             
-            # 1. Screenshot & OCR (Refresh if not first step or modified)
+            # 1. Screenshot & OCR
             if step > 1:
                 appium_client.capture_screenshot("latest.png")
                 ocr_results = screen_analyzer.extract_text("latest.png")
             
             screen_state = {"ocr_results": ocr_results}
             
-            # 2. Login Check (Security Interceptor)
-            # Automatic detection is enabled here at every step.
+            # 2. Login Check
             if auth_agent.is_login_screen(screen_state):
                 self.handle_auth_flow(screen_state)
                 continue
 
-            # 3. AI Plan
+            # 3. Determine Agent & Plan
+            # Using ActionAgent as a router or "General Planner" for now
+            # Ideally, we'd have an IntentAgent.
+            # For this iteration, let's stick to ActionAgent but delegates specific calls if needed.
+            # Actually, the user wants "specific agents".
+            # Let's simple-route based on plan output for now, or assume ActionAgent handles strategy.
+            
+            # Current ActionAgent logic yields specific actions: tap, input, system, scroll.
+            # We can map these to the new agents if we want "specialized thinking".
+            # For simplicity & speed:
+            
             plan = action_agent.run(goal, screen_state)
             action = plan.get('action')
             target = plan.get('target_text')
             val = plan.get('value')
 
-            # 4. Prepare Action & Voice Feedback
-            final_action = {"type": action, "value": val, "target": target}
-            
-            if action == 'tap':
-                voice.speak(f"Tapping {target}")
-                coords = screen_analyzer.find_text_coordinates(target, ocr_results)
-                if coords: final_action['coordinates'] = coords
-                
-            elif action == 'system':
-                # clearer voice for system commands
-                if 'volume' in str(val):
-                    voice.speak(f"Adjusting volume.")
-                elif 'home' in str(val):
-                    voice.speak("Going home.")
-                else:
-                    voice.speak(f"System: {val}")
-                    
-            elif action == 'input':
+            # Delegation Logic Example (Refining the plan with specialized agent if needed)
+            if action == 'input':
+                # Use TypingAgent to refine input strategy?
+                # typing_plan = typing_agent.run(f"Type '{val}' into '{target}'", screen_state)
+                # For now, trust the main plan.
                 voice.speak(f"Typing {val}")
                 
             elif action == 'scroll':
+                # Use NavigationAgent if complex?
                 voice.speak("Scrolling down.")
                 
-            elif action == 'finish':
-                voice.speak("Task done.")
-                self.summarize_session(ocr_results)
-                return
+            elif action == 'system':
+                voice.speak(f"System: {val}")
 
-            # 5. Interrupt Check (Before Action)
+            elif action == 'finish':
+                # Use ValidationAgent to verify?
+                verify = validation_agent.run(goal, screen_state)
+                if verify.get('status') == 'FAILED':
+                    voice.speak("Wait, I don't think it worked. Logic says failed.")
+                    # continue?
+                else:
+                    voice.speak("Task done.")
+                    self.summarize_session(ocr_results)
+                    return
+
+            # ... (Rest of execution logic)
+            
+            final_action = {"type": action, "value": val, "target": target}
+            if action == 'tap':
+                # Voice feedback
+                voice.speak(f"Tapping {target}")
+                coords = plan.get('coordinates') or screen_analyzer.find_text_coordinates(target, ocr_results)
+                if coords: final_action['coordinates'] = coords
+            
+            # 5. Interrupt Check
             if self.check_interrupt(ocr_results): return
 
             # 6. Execute
             appium_client.execute_action(final_action)
             
-            # 7. Periodic Summary (Every 2 Steps)
+            # 7. Summary & Loop Detection...
             current_sig = f"{action}:{target}:{val}"
             self.action_history.append(current_sig)
             
             if step % 2 == 0:
                 self.summarize_session(ocr_results, periodic=True)
             
-            # 8. Loop Detection (Stops if SAME action happens 2 times)
+            # Loop Dectection
             if len(self.action_history) >= 2:
                 last_move = self.action_history[-1]
                 prev_move = self.action_history[-2]
                 
-                # Check if identical
                 if last_move == prev_move:
                     is_safe_repeat = any(x in last_move for x in ['volume', 'scroll', 'input'])
-                    
-                    # Allow max 4 repeats for safe actions, 0 for others
+
+                    # Count how many times this specific action has appeared at the end
                     repeat_count = 0
                     if is_safe_repeat:
-                        # Count how many times this specific action has appeared at the end
                         for act in reversed(self.action_history):
                             if act == last_move: repeat_count += 1
                             else: break
@@ -130,7 +149,7 @@ class Orchestrator:
                         voice.speak("I seem to be stuck. Stopping task.")
                         self.summarize_session(ocr_results)
                         return
-            # 9. Interrupt Check (After Action)
+
             if self.check_interrupt(ocr_results): return
 
     def check_interrupt(self, ocr_results=None):

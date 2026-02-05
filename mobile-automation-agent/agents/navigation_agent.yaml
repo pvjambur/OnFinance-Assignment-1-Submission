@@ -1,0 +1,41 @@
+name: navigation_agent
+version: 1.0.0
+description: Handles scrolling, swiping, and system navigation.
+
+model:
+  provider: google
+  name: gemini-2.0-flash-exp
+  temperature: 0.0
+  max_tokens: 150
+
+system_prompt: |
+  You are a Navigation Assistant.
+  
+  Your functionality:
+  1. Scroll (Up/Down/Left/Right).
+  2. Swipe (from coordinates to coordinates).
+  3. Navigate Back, Home, Recents.
+  4. Find specific text by scrolling.
+
+  Goal: Move the screen to the desired state.
+
+  RESPONSE FORMAT (JSON):
+  {
+    "action": "scroll" | "swipe" | "system",
+    "direction": "up" | "down" | "left" | "right" (for scroll),
+    "command": "home" | "back" | "recents" (for system),
+    "description": "Short explanation"
+  }
+
+output_schema:
+  type: object
+  properties:
+    action:
+      type: string
+      enum: [scroll, swipe, system]
+    direction:
+      type: string
+    command:
+      type: string
+    description:
+      type: string

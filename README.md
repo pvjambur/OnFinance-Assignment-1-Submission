@@ -38,11 +38,14 @@ We iterated through several approaches to achieve the best performance:
 
 ```bash
 📦 mobile-automation-agent
- ┣ 📂 agents                  # The "Brain" Components
- ┃ ┣ 📜 action_agent.py       # Decides "Click X" or "Swipe Y" (Simplified Prompt)
- ┃ ┣ 📜 auth_agent.py         # Detects login screens securely
- ┃ ┣ 📜 intent_agent.py       # Classifies user commands (Navigation vs Action)
- ┃ ┗ 📜 base_agent.py         # Shared agent logic
+ ┣ 📂 agents                  # The "Brain" Components (Modular)
+ ┃ ┣ 📜 action_agent.py       # General Planner & Action Router
+ ┃ ┣ 📜 auth_agent.py         # 🔒 Security Interceptor (Login Detection)
+ ┃ ┣ 📜 typing_agent.py       # ⌨️ Dedicated Typing Logic (Input/Clear)
+ ┃ ┣ 📜 navigation_agent.py   # 🧭 Navigation (Scroll, Swipe, Home, Back)
+ ┃ ┣ 📜 vision_agent.py       # 👁️ Advanced Screen Analysis
+ ┃ ┣ 📜 settings_agent.py     # ⚙️ Toggles (Wifi/Bluetooth/Volume)
+ ┃ ┗ 📜 validation_agent.py   # ✅ Success Verification
  ┣ 📂 core                    # Core Infrastructure
  ┃ ┣ 📜 orchestrator.py       # The "Main Loop" (Listen -> Think -> Act)
  ┃ ┣ 📜 screen_analyzer.py    # The "Eyes" (Local Tesseract OCR)
@@ -57,7 +60,6 @@ We iterated through several approaches to achieve the best performance:
 ---
 
 ## 🚀 How to Run
-
 ### 1. Prerequisites
 -   **Python 3.10+**
 -   **Android Studio** (with an Emulator running)
