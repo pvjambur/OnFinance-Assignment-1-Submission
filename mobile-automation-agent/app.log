@@ -4084,3 +4084,598 @@ AFC is enabled with max remote calls: 10.
 🗣️ User (Whisper Local): 
 🎤 Listening for command...
 🎤 Listening...
+🚀 Mobile Agent Online (Continuous Mode)
+✅ Found ANDROID_HOME: C:\Users\jambu\AppData\Local\Android\Sdk
+🏠 Connecting to Local Appium (Emulator)...
+✅ Appium Driver Initialized Successfully
+🤖 Speaking: I am online. What should I do?
+🎤 Listening for command...
+🎤 Listening...
+🗣️ User (Whisper Local): 
+🎤 Listening for command...
+🎤 Listening...
+🗣️ User (Whisper Local):  Yeah, I am.
+🤖 Speaking: Starting:  Yeah, I am.
+--- Step 1 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Task complete.
+🤖 Speaking: I am ready for the next command.
+🎤 Listening for command...
+🎤 Listening...
+🗣️ User (Whisper Local):  Go back home.
+🤖 Speaking: Starting:  Go back home.
+--- Step 1 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: System: home
+🦾 Executing Action: system | Data: {'type': 'system', 'command': 'home'}
+📱 System Command: home
+✅ System command executed.
+👂 Checking for stop...
+🎤 Listening...
+🗣️ User (Whisper Local): 
+--- Step 2 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: System: home
+🦾 Executing Action: system | Data: {'type': 'system', 'command': 'home'}
+📱 System Command: home
+✅ System command executed.
+👂 Checking for stop...
+🎤 Listening...
+🗣️ User (Whisper Local):  Turn on Dodge.
+--- Step 3 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: System: home
+🦾 Executing Action: system | Data: {'type': 'system', 'command': 'home'}
+📱 System Command: home
+System Command Error: Message: 'POST /appium/device/press_keycode' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'POST /appium/device/press_keycode' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.mobilePressKey (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\keyboard.js:51:5)
+    at async AndroidUiautomator2Driver.executeMethod (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\basedriver\commands\execute.js:42:16)
+    at async AndroidUiautomator2Driver.execute (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\node_modules\appium-android-driver\build\lib\commands\execute.js:24:16)
+👂 Checking for stop...
+🎤 Listening...
+🗣️ User (Whisper Local):  Stop, stop, stop.
+🤖 Speaking: Stopping as requested.
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: The system repeatedly displayed information on the screen.
+🤖 Speaking: I am ready for the next command.
+🎤 Listening for command...
+🎤 Listening...
+🗣️ User (Whisper Local): one on Dorx
+🤖 Speaking: Starting: one on Dorx
+--- Step 1 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 2 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 3 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 4 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 5 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 6 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 7 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 8 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 9 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 10 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 11 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 12 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 13 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 14 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+🤖 Speaking: I am ready for the next command.
+🎤 Listening for command...
+🎤 Listening...
+🗣️ User (Whisper Local):  Scroll down and open YouTube.
+🤖 Speaking: Starting:  Scroll down and open YouTube.
+--- Step 1 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 2 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 3 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 4 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 5 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 6 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 7 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 8 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 9 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 10 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 11 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 12 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 13 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 14 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+🤖 Speaking: I am ready for the next command.
+🎤 Listening for command...
+🎤 Listening...
+🗣️ User (Whisper Local): 
+🎤 Listening for command...
+🎤 Listening...
+🗣️ User (Whisper Local): 
+🎤 Listening for command...
+🎤 Listening...
+🗣️ User (Whisper Local):  Go to Menu and Open YouTube.
+🤖 Speaking: Starting:  Go to Menu and Open YouTube.
+--- Step 1 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 2 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+--- Step 3 ---
+Failed to capture screenshot: Message: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+Stacktrace:
+UnknownError: 'GET /screenshot' cannot be proxied to UiAutomator2 server because the instrumentation process is not running (probably crashed). Check the server log and/or the logcat output for more details
+    at UIA2Proxy.command (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\jsonwp-proxy\proxy.js:310:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AndroidUiautomator2Driver.getScreenshot (C:\Users\jambu\.appium\node_modules\appium-uiautomator2-driver\build\lib\commands\screenshot.js:72:19)
+❌ Screenshot failed. Retrying...
+🚀 Mobile Agent Online (Continuous Mode)
+✅ Found ANDROID_HOME: C:\Users\jambu\AppData\Local\Android\Sdk
+🏠 Connecting to Local Appium (Emulator)...
+✅ Appium Driver Initialized Successfully
+🤖 Speaking: I am online. What should I do?
+🎤 Listening for command...
+🎤 Listening...
+🗣️ User (Whisper Local):  menu and open clock.
+🤖 Speaking: Starting:  menu and open clock.
+--- Step 1 ---
+OCR Inference Error: PaddleOCR.predict() got an unexpected keyword argument 'cls'
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: System: home
+🦾 Executing Action: system | Data: {'type': 'system', 'command': 'home'}
+📱 System Command: home
+✅ System command executed.
+👂 Checking for stop...
+🎤 Listening...
+Listening timed out (silence)
+--- Step 2 ---
+OCR Inference Error: PaddleOCR.predict() got an unexpected keyword argument 'cls'
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: System: home
+🦾 Executing Action: system | Data: {'type': 'system', 'command': 'home'}
+📱 System Command: home
+✅ System command executed.
+👂 Checking for stop...
+🎤 Listening...
+🗣️ User (Whisper Local): 
+--- Step 3 ---
+OCR Inference Error: PaddleOCR.predict() got an unexpected keyword argument 'cls'
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: System: home
+🦾 Executing Action: system | Data: {'type': 'system', 'command': 'home'}
+📱 System Command: home
+✅ System command executed.
+👂 Checking for stop...
+🎤 Listening...
+🗣️ User (Whisper Local): 
+--- Step 4 ---
+OCR Inference Error: PaddleOCR.predict() got an unexpected keyword argument 'cls'
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: System: home
+🦾 Executing Action: system | Data: {'type': 'system', 'command': 'home'}
+📱 System Command: home
+✅ System command executed.
+👂 Checking for stop...
+🎤 Listening...
+🚀 Mobile Agent Online (Continuous Mode)
+✅ Found ANDROID_HOME: C:\Users\jambu\AppData\Local\Android\Sdk
+🏠 Connecting to Local Appium (Emulator)...
+✅ Appium Driver Initialized Successfully
+🤖 Speaking: I am online. What should I do?
+🎤 Listening for command...
+🎤 Listening...
+🗣️ User (Whisper Local):  Norburklok.
+🤖 Speaking: Starting:  Norburklok.
+--- Step 1 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: System: back
+🦾 Executing Action: system | Data: {'type': 'system', 'command': 'back'}
+📱 System Command: back
+✅ System command executed.
+👂 Checking for stop...
+🎤 Listening...
+🗣️ User (Whisper Local): 
+--- Step 2 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: System: back
+🦾 Executing Action: system | Data: {'type': 'system', 'command': 'back'}
+📱 System Command: back
+✅ System command executed.
+👂 Checking for stop...
+🎤 Listening...
+Listening timed out (silence)
+--- Step 3 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: System: back
+🦾 Executing Action: system | Data: {'type': 'system', 'command': 'back'}
+📱 System Command: back
+✅ System command executed.
+🔄 Loop Detected (Same action 3 times). Stopping.
+🤖 Speaking: I seem to be stuck repeating myself. Stopping task.
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: The system display was consistently active on the screen.
+🤖 Speaking: I am ready for the next command.
+🎤 Listening for command...
+🎤 Listening...
+🗣️ User (Whisper Local):  Go to Menu and Open.
+🤖 Speaking: Starting:  Go to Menu and Open.
+--- Step 1 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: System: back
+🦾 Executing Action: system | Data: {'type': 'system', 'command': 'back'}
+📱 System Command: back
+✅ System command executed.
+👂 Checking for stop...
+🎤 Listening...
+🚀 Agent Online
+🏠 Connecting to Local Appium (Emulator)...
+Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000238BC93FB90>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session
+Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000238BC93FCB0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session
+Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000238BC9852E0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session
+❌ Connection Failed: HTTPConnectionPool(host='127.0.0.1', port=4723): Max retries exceeded with url: /session (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000238BC9858B0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+🤖 Speaking: I am ready.
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🚀 Agent Online
+🏠 Connecting to Local Appium (Emulator)...
+❌ Connection Failed: Message: The requested resource could not be found, or a request was received using an HTTP method that is not supported by the mapped resource.
+Stacktrace:
+UnknownCommandError: The requested resource could not be found, or a request was received using an HTTP method that is not supported by the mapped resource.
+    at catch404Handler (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\@appium\base-driver\build\lib\express\middleware.js:154:65)
+    at Layer.handleRequest (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\router\lib\route.js:117:3)
+    at handle (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\router\lib\layer.js:152:17)
+    at C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\router\index.js:295:15
+    at param (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\router\index.js:600:14)
+    at param (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\router\index.js:610:14)
+    at processParams (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\router\index.js:664:3)
+    at next (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\router\index.js:291:5)
+    at logger (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\morgan\index.js:144:5)
+    at Layer.handleRequest (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\router\lib\layer.js:152:17)
+    at trimPrefix (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\router\index.js:342:13)
+    at C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\router\index.js:297:9
+    at processParams (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\router\index.js:582:12)
+    at next (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\router\index.js:291:5)
+    at C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\body-parser\lib\read.js:171:5
+    at AsyncResource.runInAsyncScope (node:async_hooks:214:14)
+    at invokeCallback (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\raw-body\index.js:238:16)
+    at done (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\raw-body\index.js:227:7)
+    at IncomingMessage.onEnd (C:\Users\jambu\AppData\Local\nvm\v22.16.0\node_modules\appium\node_modules\raw-body\index.js:287:7)
+🤖 Speaking: I am ready.
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🤖 Speaking: Starting:  Open youtube
+--- Step 1 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Typing youtube
+--- Step 2 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Going home.
+--- Step 3 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Going home.
+🔄 Loop Detected (Stuck Tapping). Stopping.
+🤖 Speaking: I seem to be stuck. Stopping task.
+🤖 Speaking: Ready for next command.
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🚀 Agent Online
+🏠 Connecting to Local Appium (Emulator)...
+✅ Appium Driver Initialized Successfully
+🤖 Speaking: I am ready.
+🎤 Listening...
+🎤 Listening...
+🤖 Speaking: Starting:  Open Umoreu. Up sonra Indigenous MOA beneons Paint & Connect Let's suck A quarto Transparency liberal An don't
+--- Step 1 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Tapping All apps
+📱 Action: tap | Data: {'type': 'tap', 'value': None, 'target': 'All apps', 'coordinates': (491, 615)}
+🎯 Scaling Tap: (491, 615) -> (491, 615)
+--- Step 2 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Typing Umoreu
+📱 Action: input | Data: {'type': 'input', 'value': 'Umoreu', 'target': None}
+--- Step 3 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Tapping All apps
+📱 Action: tap | Data: {'type': 'tap', 'value': None, 'target': 'All apps', 'coordinates': (491, 615)}
+🎯 Scaling Tap: (491, 615) -> (491, 615)
+--- Step 4 ---
+AFC is enabled with max remote calls: 10.
+🚀 Agent Online
+🏠 Connecting to Local Appium (Emulator)...
+✅ Appium Driver Initialized Successfully
+🤖 Speaking: I am ready.
+🎤 Listening...
+🎤 Listening...
+🤖 Speaking: Starting:  Open clock.
+--- Step 1 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Tapping Clock
+👂 Checking for stop...
+📱 Action: tap | Data: {'type': 'tap', 'value': None, 'target': 'Clock', 'coordinates': (539, 496)}
+🎯 Scaling Tap: (539, 496) -> (539, 496)
+👂 Checking for stop...
+--- Step 2 ---
+AFC is enabled with max remote calls: 10.
+🤖 Speaking: Tapping Clock
+👂 Checking for stop...
+📱 Action: tap | Data: {'type': 'tap', 'value': None, 'target': 'Clock', 'coordinates': (145, 165)}
+🎯 Scaling Tap: (145, 165) -> (145, 165)
+🔄 Loop Detected (Stuck Tapping). Stopping.
+🤖 Speaking: I seem to be stuck. Stopping task.
+🤖 Speaking: Ready for next command.
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🎤 Listening...
+🤖 Speaking: Goodbye.

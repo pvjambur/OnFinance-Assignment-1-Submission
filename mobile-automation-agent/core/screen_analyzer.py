@@ -35,9 +35,9 @@ class ScreenAnalyzer:
 
         try:
             img = Image.open(image_path)
-            # Optimization: Resize huge screenshots to speed up processing
-            img.thumbnail((1080, 1920)) 
-            
+            img = Image.open(image_path)
+            # REMOVED: img.thumbnail((1080, 1920)) - Caused coordinate mismatch with AppiumClient
+            # We must OCR the original size so coordinates match the screenshot dimensions.
             data = pytesseract.image_to_data(img, output_type=pytesseract.Output.DICT)
             output = []
             
@@ -60,19 +60,39 @@ class ScreenAnalyzer:
 
     def find_text_coordinates(self, target_text: str, ocr_results: List[Dict]) -> Optional[tuple]:
         """
-        Instantly find coordinates for text (Case-insensitive fuzzy match)
+        Instantly find coordinates with smart matching (Case-insensitive, Punctuation-agnostic)
         """
-        target = target_text.lower()
+        import string
         
-        # 1. Exact Match
+        def clean(s): 
+            return s.lower().translate(str.maketrans('', '', string.punctuation)).strip()
+            
+        target_clean = clean(target_text)
+        if not target_clean: 
+            return None # Empty target
+        
+        # 1. Exact "Clean Mode" Match
         for item in ocr_results:
-            if item['text'].lower() == target:
+            if clean(item['text']) == target_clean:
                 return item['center']
                 
-        # 2. Partial Match (e.g. "Setting" in "Settings")
+        # 2. Substring Match (e.g., target="Settings" matches "Settings ->")
         for item in ocr_results:
-            if target in item['text'].lower() or item['text'].lower() in target:
+            item_clean = clean(item['text'])
+            if target_clean in item_clean or item_clean in target_clean:
+                # Avoid matching very short noise (e.g. "I" matching in "Info")
+                if len(item_clean) < 3 and item_clean != target_clean:
+                    continue
                 return item['center']
+                
+        # 3. Word Split Match (e.g. target="Google Play" matches "Play")
+        target_words = target_clean.split()
+        if len(target_words) > 1:
+            for word in target_words:
+                if len(word) < 4: continue # Skip small words
+                for item in ocr_results:
+                    if word in clean(item['text']):
+                        return item['center']
         
         return None
 

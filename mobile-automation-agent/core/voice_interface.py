@@ -1,10 +1,8 @@
 import os
-import time
 import speech_recognition as sr
 import pyttsx3
 import logging
-from concurrent.futures import ThreadPoolExecutor
-from typing import Optional, Callable
+from typing import Optional
 from config.settings import settings
 
 logger = logging.getLogger(__name__)
@@ -12,98 +10,79 @@ logger = logging.getLogger(__name__)
 class VoiceInterface:
     def __init__(self):
         self.recognizer = sr.Recognizer()
+        
+        # --- SENSITIVITY TUNING ---
+        self.recognizer.energy_threshold = 250  # Lowered to pick up softer voices
+        self.recognizer.dynamic_energy_threshold = True
+        self.recognizer.pause_threshold = 0.6   # Wait only 0.6s after speech ends (Faster)
+        self.recognizer.non_speaking_duration = 0.4
+        # --------------------------
+
         self.tts_engine = pyttsx3.init()
         self.setup_tts()
-        self.executor = ThreadPoolExecutor(max_workers=1)
 
     def setup_tts(self):
-        """Configure TTS voice and rate"""
         try:
             self.tts_engine.setProperty('rate', 175)
             voices = self.tts_engine.getProperty('voices')
-            # Prefer female voice if available, usually clearer
             for voice in voices:
                 if "female" in voice.name.lower():
                     self.tts_engine.setProperty('voice', voice.id)
                     break
-        except Exception as e:
-            logger.warning(f"Failed to configure TTS: {e}")
+        except: pass
 
     def speak(self, text: str):
-        """Text to Speech (Blocking or Async would be better)"""
+        if not text: return
         logger.info(f"🤖 Speaking: {text}")
         try:
             self.tts_engine.say(text)
             self.tts_engine.runAndWait()
-        except Exception as e:
-            logger.error(f"TTS Error: {e}")
+        except: pass
 
     def listen(self, timeout: int = 5) -> Optional[str]:
-        """Listen for audio and convert to text"""
-        logger.info("🎤 Listening...")
+        """Robust Listening"""
+        if timeout > 2: logger.info("🎤 Listening...")
         
         try:
             with sr.Microphone() as source:
-                self.recognizer.adjust_for_ambient_noise(source, duration=0.5)
-                # Improve listening for slower speakers
-                self.recognizer.pause_threshold = 1.2 
-                self.recognizer.non_speaking_duration = 1.0
-                audio = self.recognizer.listen(source, timeout=10, phrase_time_limit=15)
+                # Fast noise check (0.3s) prevents "hanging"
+                if timeout > 2:
+                    self.recognizer.adjust_for_ambient_noise(source, duration=0.3)
                 
-            # Hybrid STT: Try OpenAI Whisper API first (Quality), fallback to Google (Free/Unlimited)
-            if settings.OPENAI_API_KEY:
-                return self._transcribe_whisper(audio)
-            else:
-                return self._transcribe_google(audio)
-                
-        except sr.WaitTimeoutError:
-            logger.info("Listening timed out (silence)")
-            return None
-        except Exception as e:
-            logger.error(f"Listening error: {e}")
-            return None
+                try:
+                    # phrase_time_limit=8 ensures it stops listening if background noise is constant
+                    audio = self.recognizer.listen(source, timeout=timeout, phrase_time_limit=8)
+                except sr.WaitTimeoutError:
+                    return None
 
-    def _transcribe_whisper(self, audio) -> str:
-        """Use OpenAI Whisper API"""
-        # Note: speech_recognition supports whisper if installed, or we use raw API
-        # Here we use the simplified Google fallback if whisper lib isn't set up perfectly
-        # But let's try to use the library's built-in whisper support if available
-        # Try Whisper API if key exists, else Local
-        if settings.OPENAI_API_KEY and not settings.OPENAI_API_KEY.startswith("sk-proj-"): # invalid key check
-             try:
-                text = self.recognizer.recognize_whisper_api(audio, api_key=settings.OPENAI_API_KEY)
-                logger.info(f"🗣️ User (Whisper API): {text}")
-                return text
-             except Exception as e:
-                logger.warning(f"Whisper API failed ({e}), trying local...")
+            # 1. Try Whisper API
+            if settings.OPENAI_API_KEY and not settings.OPENAI_API_KEY.startswith("sk-proj-"):
+                try:
+                    return self.recognizer.recognize_whisper_api(audio, api_key=settings.OPENAI_API_KEY)
+                except: pass
 
-        return self._transcribe_whisper_local(audio)
+            # 2. Try Local Whisper (Best for free quality)
+            try:
+                # pip install openai-whisper
+                return self.recognizer.recognize_whisper(audio, model="base")
+            except: 
+                pass
 
-    def _transcribe_whisper_local(self, audio) -> str:
-        """Use Local OpenAI Whisper (Free, Offline)"""
-        try:
-            # Requires: pip install openai-whisper
-            text = self.recognizer.recognize_whisper(audio, model="base")
-            logger.info(f"🗣️ User (Whisper Local): {text}")
-            return text
-        except AttributeError:
-             logger.warning("Local Whisper not available/installed, falling back to Google")
-             return self._transcribe_google(audio)
-        except Exception as e:
-            logger.error(f"Whisper Local Error: {e}")
+            # 3. Fallback to Google (Standard)
             return self._transcribe_google(audio)
 
+        except Exception as e:
+            logger.error(f"Mic Error: {e}")
+            return None
+
     def _transcribe_google(self, audio) -> str:
-        """Use Google Speech Recognition (Free)"""
         try:
             text = self.recognizer.recognize_google(audio)
             logger.info(f"🗣️ User (Google): {text}")
             return text
         except sr.UnknownValueError:
-            logger.info("Could not understand audio")
-            return None
-        except sr.RequestError as e:
-            logger.error(f"Google SR Error: {e}")
-            return None
+            return ""
+        except sr.RequestError:
+            return ""
 
 voice = VoiceInterface()

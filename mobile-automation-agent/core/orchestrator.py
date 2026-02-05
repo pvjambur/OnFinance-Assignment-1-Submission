@@ -1,8 +1,5 @@
 import logging
 import time
-from typing import Dict, Any
-
-from agents.intent_agent import intent_agent
 from agents.action_agent import action_agent
 from agents.auth_agent import auth_agent
 from core.screen_analyzer import screen_analyzer
@@ -18,136 +15,144 @@ class Orchestrator:
         self.action_history = []
 
     def start(self):
-        logger.info("🚀 Mobile Agent Online (Continuous Mode)")
+        logger.info("🚀 Agent Online")
         appium_client.initialize_driver()
-        
-        voice.speak("I am online. What should I do?")
+        voice.speak("I am ready.")
         self.running = True
         
         while self.running:
-            # 1. ALWAYS LISTEN (The Main Loop)
-            logger.info("🎤 Listening for command...")
+            logger.info("🎤 Listening...")
             user_command = voice.listen()
-            
-            if not user_command: 
-                continue
+            if not user_command: continue
 
-            # Global Exit Command
-            if "exit" in user_command.lower() or "terminate" in user_command.lower():
-                voice.speak("Shutting down.")
+            if any(kw in user_command.lower() for kw in ["exit", "quit", "terminate"]):
+                voice.speak("Goodbye.")
                 break
 
-            # 2. Execute Task
             self.action_history = []
             self.execute_task_fast(user_command)
             
-            # After task finishes, loop back to Step 1 automatically
-            voice.speak("I am ready for the next command.")
+            if not self.running: break # Exit immediately if "exit" was spoken during task
+            
+            voice.speak("Ready for next command.")
 
     def execute_task_fast(self, goal: str):
         voice.speak(f"Starting: {goal}")
         
-        # We run up to 15 steps, but we check for "STOP" every time
         for step in range(1, 15):
             logger.info(f"--- Step {step} ---")
             
-            # A. SCREENSHOT (Taking a fresh look every step)
-            screenshot = appium_client.capture_screenshot("latest.png")
-            if not screenshot:
-                logger.error("❌ Screenshot failed. Retrying...")
-                time.sleep(1)
-                continue
-
-            # B. FAST OCR
+            # 1. Screenshot & OCR
+            appium_client.capture_screenshot("latest.png")
             ocr_results = screen_analyzer.extract_text("latest.png")
             screen_state = {"ocr_results": ocr_results}
             
-            # C. SECURITY CHECK: IS THIS A LOGIN SCREEN?
-            # We run the AuthAgent BEFORE the ActionAgent
-            is_login = auth_agent.is_login_screen(screen_state)
-            if is_login:
+            # 2. Login Check (Security Interceptor)
+            if auth_agent.is_login_screen(screen_state):
                 self.handle_auth_flow(screen_state)
-                # After handling login, we capture a new screenshot and restart the step
-                continue 
+                continue
 
-            # D. ACTION PLANNING
+            # 3. AI Plan
             plan = action_agent.run(goal, screen_state)
+            action = plan.get('action')
+            target = plan.get('target_text')
+            val = plan.get('value')
+
+            # 4. Prepare Action & Voice Feedback
+            final_action = {"type": action, "value": val, "target": target}
             
-            action_type = plan.get('action')
-            target_text = plan.get('target_text')
-            input_value = plan.get('value')
+            if action == 'tap':
+                voice.speak(f"Tapping {target}")
+                coords = screen_analyzer.find_text_coordinates(target, ocr_results)
+                if coords: final_action['coordinates'] = coords
+                
+            elif action == 'system':
+                # clearer voice for system commands
+                if 'volume' in str(val):
+                    voice.speak(f"Adjusting volume.")
+                elif 'home' in str(val):
+                    voice.speak("Going home.")
+                else:
+                    voice.speak(f"System: {val}")
+                    
+            elif action == 'input':
+                voice.speak(f"Typing {val}")
+                
+            elif action == 'scroll':
+                voice.speak("Scrolling down.")
+                
+            elif action == 'finish':
+                voice.speak("Task done.")
+                return
+
+            # 5. Interrupt Check (Before Action)
+            if self.check_interrupt(): return
+
+            # 6. Execute
+            appium_client.execute_action(final_action)
             
-            # E. STOP CHECK
-            # We can't "listen" while thinking, but if the AI decides to "wait",
-            # or if we implement a separate listen thread (complex), 
-            # for now, we rely on the user saying "Stop" if prompted.
-            if action_type == 'finish':
-                voice.speak("Task complete.")
-                self.summarize_session()
-                return # Go back to main loop
-
-            # F. VOICE FEEDBACK & EXECUTION
-            if action_type == 'tap':
-                voice.speak(f"Tapping {target_text or 'screen'}")
-                final_action = {"type": "tap", "target": target_text}
-                
-                # Resolve coordinates locally (FAST)
-                if target_text:
-                    coords = screen_analyzer.find_text_coordinates(target_text, ocr_results)
-                    if coords:
-                        final_action['coordinates'] = coords
-                
-                appium_client.execute_action(final_action)
-
-            elif action_type == 'input':
-                voice.speak(f"Typing {input_value}")
-                appium_client.execute_action({"type": "input", "value": input_value})
-                
-            elif action_type == 'scroll':
-                voice.speak("Scrolling")
-                appium_client.execute_action({"type": "scroll"})
-
-            # Log history
-            self.action_history.append(f"{action_type} on {target_text or 'screen'}")
+            # 7. Loop Detection (Stops if SAME action happens 2 times)
+            current_sig = f"{action}:{target}:{val}"
+            self.action_history.append(current_sig)
             
-            # G. RESPONSIVENESS CHECK: Check for STOP command
-            # This replaces time.sleep(1) with a useful listen check.
-            logger.info("👂 Checking for stop...")
-            interrupt = voice.listen(timeout=1)
-            if interrupt and ("stop" in interrupt.lower() or "wait" in interrupt.lower()):
-                 voice.speak("Stopping as requested.")
-                 self.summarize_session()
-                 return # Exit task loop, go back to main listening loop
+            if len(self.action_history) >= 2:
+                last_move = self.action_history[-1]
+                prev_move = self.action_history[-2]
+                
+                # Check if identical
+                if last_move == prev_move:
+                    is_safe_repeat = any(x in last_move for x in ['volume', 'scroll', 'input'])
+                    
+                    if not is_safe_repeat:
+                        logger.warning("🔄 Loop Detected (Stuck Tapping). Stopping.")
+                        voice.speak("I seem to be stuck. Stopping task.")
+                        return
 
- 
+            # 8. Interrupt Check (After Action)
+            if self.check_interrupt(): return
+
+    def check_interrupt(self):
+        """Quick check for stop/exit command (1s wait)"""
+        logger.info("👂 Checking for stop...")
+        interrupt = voice.listen(timeout=1)
+        
+        if interrupt:
+            text = interrupt.lower()
+            if any(kw in text for kw in ["exit", "quit", "terminate"]):
+                 voice.speak("Exiting agent.")
+                 self.running = False
+                 return True
+            elif any(kw in text for kw in ["stop", "wait"]):
+                 voice.speak("Stopping task.")
+                 return True
+                 
+        return False
 
     def handle_auth_flow(self, screen_state):
         """
-        Pauses execution to ask the user for credentials securely.
+        Secure Interactive Login Flow
         """
-        logger.info("🔒 Login Screen Detected - Intercepting Control")
-        voice.speak("I see a login screen. I need your help.")
+        logger.info("🔒 Login Detected")
+        voice.speak("I see a login screen. Please say your username.")
         
-        # 1. Ask for ID
-        voice.speak("Please say your username or email.")
-        username = voice.listen()
+        # 1. Get Username
+        username = voice.listen(timeout=8)
         if username:
-            voice.speak(f"Entering username.")
-            # We assume focus is on the field or we tap the first input found
+            voice.speak("Entering username.")
             appium_client.execute_action({"type": "input", "value": username})
             time.sleep(1)
 
-        # 2. Ask for Password
+        # 2. Get Password
         voice.speak("Please say your password.")
-        password = voice.listen()
+        password = voice.listen(timeout=8)
         if password:
             voice.speak("Entering password.")
             appium_client.execute_action({"type": "input", "value": password})
             time.sleep(1)
             
         # 3. Submit
-        voice.speak("Attempting to sign in.")
-        # Try to find a "Sign In" or "Login" button specifically
+        voice.speak("Signing in.")
+        # Try to tap "Sign In" or just hit Enter
         ocr_results = screen_state.get('ocr_results', [])
         submit_btn = screen_analyzer.find_text_coordinates("Sign In", ocr_results) or \
                      screen_analyzer.find_text_coordinates("Log In", ocr_results) or \
@@ -156,22 +161,6 @@ class Orchestrator:
         if submit_btn:
             appium_client.execute_action({"type": "tap", "coordinates": submit_btn})
         else:
-            # Fallback: Press Enter key via ADB
-            appium_client.execute_action({"type": "input", "value": "\\n"})
-
-    def summarize_session(self):
-        if not self.action_history: 
-            return
-        
-        result = gemini_client.generate_json(
-            prompt=f"Actions taken: {self.action_history}",
-            system_prompt="Summarize these actions in 1-2 sentences for a blind user. Return JSON with key 'summary'."
-        )
-        summary = result.get('summary', 'Task completed.')
-        voice.speak(summary)
-
-    def summarize_and_stop(self):
-        voice.speak("Stopping.")
-        self.running = False
+            appium_client.execute_action({"type": "system", "command": "enter"})
 
 orchestrator = Orchestrator()
