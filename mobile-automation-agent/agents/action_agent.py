@@ -14,12 +14,16 @@ class ActionAgent(BaseAgent):
         Goal: {task_goal}
         Visible Text: {visible_text}
         
-        Decide the next move.
+        RULES:
+        1. If you see the goal is achieved (e.g. app opened), return "action": "finish".
+        2. DO NOT go "home" unless explicitly asked.
+        3. If you are unsure, "scroll" or "wait".
+        4. Look for the EXACT text to tap.
         
         AVAILABLE ACTIONS:
         - "tap": Tap visible text.
         - "input": Type text.
-        - "system": Use hardware keys ("home", "back", "recents", "notification", "volume_up").
+        - "system": Use keys ("home", "back", "recents", "volume_up").
         - "scroll": Scroll down.
         - "finish": Goal reached.
         

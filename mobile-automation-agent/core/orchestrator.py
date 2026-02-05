@@ -83,10 +83,11 @@ class Orchestrator:
                 
             elif action == 'finish':
                 voice.speak("Task done.")
+                self.summarize_session(ocr_results)
                 return
 
             # 5. Interrupt Check (Before Action)
-            if self.check_interrupt(): return
+            if self.check_interrupt(ocr_results): return
 
             # 6. Execute
             appium_client.execute_action(final_action)
@@ -103,15 +104,23 @@ class Orchestrator:
                 if last_move == prev_move:
                     is_safe_repeat = any(x in last_move for x in ['volume', 'scroll', 'input'])
                     
-                    if not is_safe_repeat:
-                        logger.warning("🔄 Loop Detected (Stuck Tapping). Stopping.")
+                    # Allow max 4 repeats for safe actions, 0 for others
+                    repeat_count = 0
+                    if is_safe_repeat:
+                        # Count how many times this specific action has appeared at the end
+                        for act in reversed(self.action_history):
+                            if act == last_move: repeat_count += 1
+                            else: break
+                    
+                    if not is_safe_repeat or repeat_count >= 3:
+                        logger.warning(f"🔄 Loop Detected ({repeat_count} repeats). Stopping.")
                         voice.speak("I seem to be stuck. Stopping task.")
+                        self.summarize_session(ocr_results)
                         return
-
             # 8. Interrupt Check (After Action)
-            if self.check_interrupt(): return
+            if self.check_interrupt(ocr_results): return
 
-    def check_interrupt(self):
+    def check_interrupt(self, ocr_results=None):
         """Quick check for stop/exit command (1s wait)"""
         logger.info("👂 Checking for stop...")
         interrupt = voice.listen(timeout=1)
@@ -124,6 +133,7 @@ class Orchestrator:
                  return True
             elif any(kw in text for kw in ["stop", "wait"]):
                  voice.speak("Stopping task.")
+                 self.summarize_session(ocr_results)
                  return True
                  
         return False
@@ -162,5 +172,41 @@ class Orchestrator:
             appium_client.execute_action({"type": "tap", "coordinates": submit_btn})
         else:
             appium_client.execute_action({"type": "system", "command": "enter"})
+
+    def summarize_session(self, ocr_results=None):
+        if not self.action_history: 
+            return
+        
+        # Get visible text to identify page
+        visible_text = []
+        if ocr_results:
+             visible_text = [item['text'] for item in ocr_results]
+        elif hasattr(screen_analyzer, 'extract_text'):
+             # Fallback: Quick scan if not provided
+             res = screen_analyzer.extract_text("latest.png")
+             visible_text = [item['text'] for item in res]
+             
+        prompt = f"""
+        Actions Taken: {self.action_history}
+        Visible Screen Text: {visible_text[:30]} 
+        
+        1. Summarize what was done in 1 sentence.
+        2. Identify the current page/screen name (e.g. "Home Screen", "Settings Page", "Clock App").
+        
+        RESPONSE JSON:
+        {{
+            "summary": "We opened settings and scrolled down.",
+            "current_page": "Settings Page"
+        }}
+        """
+        
+        try:
+            result = gemini_client.generate_json(prompt=prompt)
+            summary = result.get('summary', 'Task completed.')
+            page = result.get('current_page', 'unknown page')
+            
+            voice.speak(f"{summary} You are now on the {page}.")
+        except:
+            voice.speak("Task completed.")
 
 orchestrator = Orchestrator()

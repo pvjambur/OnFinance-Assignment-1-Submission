@@ -91,6 +91,11 @@ class AppiumClient:
                 logger.info("🎉 Task finished.")
         except Exception as e:
             logger.error(f"❌ Action Error: {e}")
+            # Auto-Recovery for Crashed Driver
+            if "instrumentation process is not running" in str(e) or "Session" in str(e):
+                logger.warning("♻️ Appium Driver Crashed. Reconnecting...")
+                self.quit()
+                self.initialize_driver()
 
     def _handle_tap(self, action: Dict[str, Any]):
         coords = action.get('coordinates')
