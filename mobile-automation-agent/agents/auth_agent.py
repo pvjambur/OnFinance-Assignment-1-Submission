@@ -21,14 +21,19 @@ class AuthAgent(BaseAgent):
         # 1. Fast Keyword Match (Instant)
         matches = [word for word in self.auth_keywords if any(word in t for t in visible_text)]
         
-        # If we see "Password" AND ("Sign In" or "Log In"), it's definitely a login screen
-        has_password = any("password" in t for t in visible_text)
-        has_signin = any("sign in" in t for t in visible_text) or any("log in" in t for t in visible_text)
+        # 2. Heuristic Check
+        # If we see "Sign In"/"Log In" AND tokens like "Password", "Email", "Username", or "Next"
+        has_auth_action = any(k in t for t in visible_text for k in ["sign in", "log in", "next", "continue"])
+        has_field = any(k in t for t in visible_text for k in ["password", "email", "username", "phone", "verify"])
         
-        if has_password and has_signin:
+        if has_auth_action and has_field:
             logger.info("🔒 Auth Keyword Match detected")
             return True
             
+        # 3. Super permissive check for "Sign in" title
+        if any(t == "sign in" or t == "log in" for t in visible_text):
+             return True
+             
         return False
 
     def run(self, *args, **kwargs):

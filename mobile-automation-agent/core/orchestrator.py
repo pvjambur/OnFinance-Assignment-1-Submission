@@ -6,6 +6,7 @@ from core.screen_analyzer import screen_analyzer
 from core.voice_interface import voice
 from clients.appium_client import appium_client
 from clients.google_genai_client import gemini_client
+from clients.supabase_client import supabase_client
 
 logger = logging.getLogger(__name__)
 
@@ -39,15 +40,23 @@ class Orchestrator:
     def execute_task_fast(self, goal: str):
         voice.speak(f"Starting: {goal}")
         
+        # Initial Page Identification
+        appium_client.capture_screenshot("latest.png")
+        ocr_results = screen_analyzer.extract_text("latest.png")
+        self.identify_page(ocr_results, initial=True)
+        
         for step in range(1, 15):
             logger.info(f"--- Step {step} ---")
             
-            # 1. Screenshot & OCR
-            appium_client.capture_screenshot("latest.png")
-            ocr_results = screen_analyzer.extract_text("latest.png")
+            # 1. Screenshot & OCR (Refresh if not first step or modified)
+            if step > 1:
+                appium_client.capture_screenshot("latest.png")
+                ocr_results = screen_analyzer.extract_text("latest.png")
+            
             screen_state = {"ocr_results": ocr_results}
             
             # 2. Login Check (Security Interceptor)
+            # Automatic detection is enabled here at every step.
             if auth_agent.is_login_screen(screen_state):
                 self.handle_auth_flow(screen_state)
                 continue
@@ -92,10 +101,14 @@ class Orchestrator:
             # 6. Execute
             appium_client.execute_action(final_action)
             
-            # 7. Loop Detection (Stops if SAME action happens 2 times)
+            # 7. Periodic Summary (Every 2 Steps)
             current_sig = f"{action}:{target}:{val}"
             self.action_history.append(current_sig)
             
+            if step % 2 == 0:
+                self.summarize_session(ocr_results, periodic=True)
+            
+            # 8. Loop Detection (Stops if SAME action happens 2 times)
             if len(self.action_history) >= 2:
                 last_move = self.action_history[-1]
                 prev_move = self.action_history[-2]
@@ -112,12 +125,12 @@ class Orchestrator:
                             if act == last_move: repeat_count += 1
                             else: break
                     
-                    if not is_safe_repeat or repeat_count >= 3:
+                    if not is_safe_repeat or repeat_count >= 2:
                         logger.warning(f"🔄 Loop Detected ({repeat_count} repeats). Stopping.")
                         voice.speak("I seem to be stuck. Stopping task.")
                         self.summarize_session(ocr_results)
                         return
-            # 8. Interrupt Check (After Action)
+            # 9. Interrupt Check (After Action)
             if self.check_interrupt(ocr_results): return
 
     def check_interrupt(self, ocr_results=None):
@@ -138,29 +151,59 @@ class Orchestrator:
                  
         return False
 
+
     def handle_auth_flow(self, screen_state):
         """
-        Secure Interactive Login Flow
+        Secure Interactive Login Flow with Supabase Verification
         """
         logger.info("🔒 Login Detected")
-        voice.speak("I see a login screen. Please say your username.")
+        voice.speak("I see a login screen. Please say your email or username.")
         
-        # 1. Get Username
+        # 1. Get Username/Email
         username = voice.listen(timeout=8)
-        if username:
-            voice.speak("Entering username.")
-            appium_client.execute_action({"type": "input", "value": username})
-            time.sleep(1)
+        if not username:
+            voice.speak("No input detected. Skipping login.")
+            return
+
+        voice.speak(f"Got it. Please say your password.")
 
         # 2. Get Password
-        voice.speak("Please say your password.")
         password = voice.listen(timeout=8)
-        if password:
-            voice.speak("Entering password.")
-            appium_client.execute_action({"type": "input", "value": password})
-            time.sleep(1)
+        if not password:
+             voice.speak("No password detected. Skipping.")
+             return
+             
+        # 3. Verify with Supabase
+        voice.speak("Verifying credentials...")
+        is_valid, msg = supabase_client.verify_user(username, password)
+        
+        if is_valid:
+            voice.speak("Credentials verified! Logging in.")
+        else:
+            voice.speak(f"Warning: Verification failed: {msg}. Type anyway?")
+            confirm = voice.listen(timeout=5)
+            if not confirm or "yes" not in confirm.lower():
+                voice.speak("Aborting login.")
+                return
+
+        # 4. Type Credentials
+        voice.speak("Entering details.")
+        appium_client.execute_action({"type": "input", "value": username})
+        time.sleep(1)
+        
+        # Switch field? Usually 'tab' or tap password field. 
+        # For now, simplistic input assuming focus or just append. 
+        # Ideally we tap the password field. But we don't know where it is without coordinates?
+        # The Action Agent is usually smarter. 
+        # BUT `handle_auth_flow` is a special override.
+        # Let's type password blindly or rely on standard "Enter" to Next.
+        appium_client.execute_action({"type": "system", "command": "enter"}) # Move to next field
+        time.sleep(1)
+        
+        appium_client.execute_action({"type": "input", "value": password})
+        time.sleep(1)
             
-        # 3. Submit
+        # 5. Submit
         voice.speak("Signing in.")
         # Try to tap "Sign In" or just hit Enter
         ocr_results = screen_state.get('ocr_results', [])
@@ -173,7 +216,20 @@ class Orchestrator:
         else:
             appium_client.execute_action({"type": "system", "command": "enter"})
 
-    def summarize_session(self, ocr_results=None):
+    def identify_page(self, ocr_results, initial=False):
+        """Identifies the current page using Gemini"""
+        visible_text = [item['text'] for item in ocr_results]
+        prompt = f"Identify the screen based on text: {visible_text[:30]}. Return ONLY the page name (e.g. 'Settings', 'Home Screen')."
+        
+        try:
+            page_name = gemini_client.generate_text(prompt).strip()
+            if initial:
+                voice.speak(f"You are on the {page_name}.")
+            return page_name
+        except:
+            return "Unknown Page"
+
+    def summarize_session(self, ocr_results=None, periodic=False):
         if not self.action_history: 
             return
         
@@ -191,22 +247,25 @@ class Orchestrator:
         Visible Screen Text: {visible_text[:30]} 
         
         1. Summarize what was done in 1 sentence.
-        2. Identify the current page/screen name (e.g. "Home Screen", "Settings Page", "Clock App").
+        2. Identify the current page/screen name.
         
         RESPONSE JSON:
         {{
-            "summary": "We opened settings and scrolled down.",
+            "summary": "We scrolled down twice.",
             "current_page": "Settings Page"
         }}
         """
         
         try:
             result = gemini_client.generate_json(prompt=prompt)
-            summary = result.get('summary', 'Task completed.')
+            summary = result.get('summary', 'Progress update.')
             page = result.get('current_page', 'unknown page')
             
-            voice.speak(f"{summary} You are now on the {page}.")
+            if periodic:
+                voice.speak(f"Update: {summary}. Current page: {page}.")
+            else:
+                voice.speak(f"{summary} You are now on the {page}.")
         except:
-            voice.speak("Task completed.")
+            voice.speak("Task update.")
 
 orchestrator = Orchestrator()
