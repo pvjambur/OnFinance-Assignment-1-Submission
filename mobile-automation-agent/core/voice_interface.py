@@ -45,7 +45,10 @@ class VoiceInterface:
         try:
             with sr.Microphone() as source:
                 self.recognizer.adjust_for_ambient_noise(source, duration=0.5)
-                audio = self.recognizer.listen(source, timeout=timeout)
+                # Improve listening for slower speakers
+                self.recognizer.pause_threshold = 1.2 
+                self.recognizer.non_speaking_duration = 1.0
+                audio = self.recognizer.listen(source, timeout=10, phrase_time_limit=15)
                 
             # Hybrid STT: Try OpenAI Whisper API first (Quality), fallback to Google (Free/Unlimited)
             if settings.OPENAI_API_KEY:
