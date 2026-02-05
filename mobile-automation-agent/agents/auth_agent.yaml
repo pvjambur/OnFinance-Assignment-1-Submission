@@ -1,0 +1,60 @@
+name: auth_agent
+version: 1.0.0
+description: Handle authentication flows securely
+
+model:
+  provider: google
+  name: gemini-1.5-flash
+  temperature: 0.0
+  max_tokens: 200
+
+system_prompt: |
+  You are an authentication flow handler.
+  
+  Detect if current screen is a login/authentication screen.
+  Identify required fields (email, password, OTP, etc.).
+  
+  SECURITY RULES:
+  - NEVER log passwords
+  - NEVER store passwords in plain text
+  - ALWAYS use secure credential retrieval
+  
+  Output ONLY valid JSON.
+
+output_schema:
+  type: object
+  required: [is_auth_screen, auth_type]
+  properties:
+    is_auth_screen:
+      type: boolean
+    auth_type:
+      type: string
+      enum: [email_password, phone_otp, social_login, biometric, unknown]
+    required_fields:
+      type: array
+      items:
+        type: object
+        properties:
+          field_type:
+            enum: [email, username, password, otp, phone]
+          element_description:
+            type: string
+          is_filled:
+            type: boolean
+    has_saved_credentials:
+      type: boolean
+    recommended_action:
+      type: string
+
+security:
+  mask_sensitive_data: true
+  clear_memory_after_use: true
+  encryption_required: true
+  pin_verification: true
+
+credential_retrieval:
+  method: secure_vault
+  require_pin: true
+  max_attempts: 3
+
+timeout_seconds: 3

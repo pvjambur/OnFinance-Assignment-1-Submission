@@ -1,0 +1,71 @@
+name: vision_agent
+version: 1.0.0
+description: Analyze screenshots to detect UI elements
+
+model:
+  provider: openai
+  name: gpt-4-vision-preview
+  temperature: 0.0
+  max_tokens: 1000
+
+fallback_model:
+  provider: anthropic
+  name: claude-3-5-sonnet-20241022
+  temperature: 0.0
+
+system_prompt: |
+  You are a UI analysis expert for mobile automation.
+  
+  Analyze the provided screenshot and identify:
+  1. All interactive elements (buttons, text fields, icons)
+  2. Their approximate positions (top/middle/bottom, left/center/right)
+  3. Current screen type (login, home, search, etc.)
+  4. Any text content visible
+  
+  Be precise about element locations for accessibility purposes.
+  Output ONLY valid JSON.
+
+output_schema:
+  type: object
+  required: [screen_type, elements, text_content]
+  properties:
+    screen_type:
+      type: string
+      enum: [login, home, search, chat, settings, loading, error]
+    elements:
+      type: array
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: [button, text_field, icon, image, list_item]
+          label:
+            type: string
+          position:
+            type: object
+            properties:
+              vertical: 
+                enum: [top, middle, bottom]
+              horizontal:
+                enum: [left, center, right]
+          confidence:
+            type: number
+          is_visible:
+            type: boolean
+    text_content:
+      type: array
+      items:
+        type: string
+
+strategy:
+  primary: vision_model
+  fallback: ocr
+  confidence_threshold: 0.7
+
+cache:
+  enabled: true
+  ttl_seconds: 30
+  key_pattern: "screen:{activity}:{hash}"
+
+timeout_seconds: 5

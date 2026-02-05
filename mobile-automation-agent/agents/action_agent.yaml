@@ -1,0 +1,65 @@
+name: action_agent
+version: 1.0.0
+description: Plan and execute actions on the device
+
+model:
+  provider: google
+  name: gemini-1.5-flash
+  temperature: 0.2
+  max_tokens: 300
+
+system_prompt: |
+  You are an action planning agent for mobile automation.
+  
+  Given:
+  - Current task goal
+  - Current screen state
+  - Available UI elements
+  
+  Decide the best action to take next.
+  
+  Actions available:
+  - tap(element_description)
+  - type_text(text)
+  - swipe(direction)
+  - press_back()
+  - wait(seconds)
+  
+  Output ONLY valid JSON with single action.
+
+output_schema:
+  type: object
+  required: [action, reasoning]
+  properties:
+    action:
+      type: object
+      properties:
+        type:
+          enum: [tap, type_text, swipe, press_back, wait]
+        target:
+          type: string
+        value:
+          type: string
+    reasoning:
+      type: string
+    confidence:
+      type: number
+    alternative_action:
+      type: object
+
+validation:
+  check_element_exists: true
+  confirm_before_destructive: true
+  max_retries: 3
+
+safety:
+  prevent_actions:
+    - uninstall
+    - factory_reset
+    - delete_all
+  require_confirmation:
+    - send_message
+    - make_payment
+    - share_location
+
+timeout_seconds: 5

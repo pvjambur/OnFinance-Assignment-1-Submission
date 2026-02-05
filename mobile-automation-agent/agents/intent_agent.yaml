@@ -1,0 +1,80 @@
+name: intent_agent
+version: 1.0.0
+description: Parse user commands into structured intents
+
+model:
+  provider: google
+  name: gemini-1.5-flash
+  temperature: 0.1
+  max_tokens: 500
+
+system_prompt: |
+  You are an intent parser for a mobile automation system for blind users.
+  
+  Parse the user's natural language command into a structured JSON format.
+  
+  Extract:
+  1. Main goal/intent
+  2. Target app name and package (if mentioned)
+  3. Specific query or action
+  4. Any parameters
+  
+  Output ONLY valid JSON, no markdown.
+
+examples:
+  - input: "Open ChatGPT and ask what's the capital of France"
+    output: |
+      {
+        "intent": "query_app",
+        "app": {
+          "name": "ChatGPT",
+          "package": "com.openai.chatgpt",
+          "confidence": 0.95
+        },
+        "query": "what's the capital of France",
+        "requires_auth": true,
+        "estimated_steps": 5
+      }
+  
+  - input: "Search for coffee shops nearby on Google Maps"
+    output: |
+      {
+        "intent": "search",
+        "app": {
+          "name": "Google Maps",
+          "package": "com.google.android.apps.maps",
+          "confidence": 0.98
+        },
+        "query": "coffee shops nearby",
+        "requires_auth": false,
+        "estimated_steps": 3
+      }
+
+output_schema:
+  type: object
+  required: [intent, app, query]
+  properties:
+    intent:
+      type: string
+      enum: [query_app, search, navigate, open_app, send_message]
+    app:
+      type: object
+      properties:
+        name:
+          type: string
+        package:
+          type: string
+        confidence:
+          type: number
+    query:
+      type: string
+    requires_auth:
+      type: boolean
+    estimated_steps:
+      type: integer
+
+retry:
+  max_attempts: 3
+  backoff_factor: 2
+
+timeout_seconds: 10

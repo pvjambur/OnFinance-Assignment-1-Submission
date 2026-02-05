@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  # Main application
+  mobile-agent:
+    build: .
+    container_name: mobile-automation-agent
+    env_file:
+      - .env
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_KEY}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./logs:/app/logs
+      - ./data:/app/data
+      - ./cache:/app/cache
+    depends_on:
+      - redis
+    networks:
+      - agent-network
+    restart: unless-stopped
+
+  # Redis for task queue and caching
+  redis:
+    image: redis:7-alpine
+    container_name: mobile-agent-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+      - ./docker/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    networks:
+      - agent-network
+    restart: unless-stopped
+
+  # Optional: Ollama for local LLM
+  ollama:
+    image: ollama/ollama:latest
+    container_name: mobile-agent-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    networks:
+      - agent-network
+    restart: unless-stopped
+
+  # Optional: API Gateway (nginx)
+  nginx:
+    image: nginx:alpine
+    container_name: mobile-agent-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - mobile-agent
+    networks:
+      - agent-network
+    restart: unless-stopped
+
+volumes:
+  redis-data:
+  ollama-data:
+
+networks:
+  agent-network:
+    driver: bridge
