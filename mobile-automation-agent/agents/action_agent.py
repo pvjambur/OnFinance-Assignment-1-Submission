@@ -38,6 +38,15 @@ class ActionAgent(BaseAgent):
         {previous_actions}
         
         Determine the next single action.
+        
+        RESPONSE FORMAT:
+        {{
+            "action": {{
+                "type": "tap" | "input" | "scroll" | "wait" | "finish",
+                "target": "element_description_or_id",
+                "value": "text_to_type_if_input"
+            }}
+        }}
         """
 
         response = gemini_client.generate_json(
@@ -50,7 +59,50 @@ class ActionAgent(BaseAgent):
             return {"action": {"type": "wait", "reason": "planning_failed"}}
 
         action = response.get('action', {})
-        logger.info(f"👉 Decided: {action.get('type')} -> {action.get('target', 'none')}")
+        
+        if isinstance(action, dict):
+            logger.info(f"👉 Decided: {action.get('type')} -> {action.get('target', 'none')}")
+        else:
+            logger.warning(f"👉 Decided (Non-Standard): {action}")
+            
         return response
+
+    def resolve_coordinates(self, action_plan: Dict[str, Any], screen_state: Dict[str, Any]):
+        """
+        Injects coordinates into the action plan if the target is a text label.
+        Matches action_plan['action']['target'] against screen_state['ocr_enriched'].
+        """
+        if not isinstance(action_plan, dict) or 'action' not in action_plan:
+            return action_plan
+
+        action = action_plan['action']
+        target_text = action.get('target')
+        
+        # Only resolve if it's a tap/click and no coordinates exist
+        if action.get('type') not in ['tap', 'click'] or action.get('coordinates'):
+            return action_plan
+
+        ocr_data = screen_state.get('ocr_enriched', [])
+        if not ocr_data or not target_text:
+            return action_plan
+
+        logger.info(f"📍 Attempting to resolve coordinates for: '{target_text}'")
+        
+        # 1. Exact Match
+        for item in ocr_data:
+            if item['text'].lower() == target_text.lower():
+                action['coordinates'] = item['center']
+                logger.info(f"✅ Found exact match: {target_text} at {item['center']}")
+                return action_plan
+
+        # 2. Partial Match
+        for item in ocr_data:
+            if target_text.lower() in item['text'].lower() or item['text'].lower() in target_text.lower():
+                 action['coordinates'] = item['center']
+                 logger.info(f"✅ Found partial match: '{target_text}' ~ '{item['text']}' at {item['center']}")
+                 return action_plan
+
+        logger.warning(f"❌ Could not resolve coordinates for: {target_text}")
+        return action_plan
 
 action_agent = ActionAgent()

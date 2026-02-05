@@ -1,6 +1,6 @@
 import logging
 import time
-import asyncio
+import os
 from typing import Dict, Any
 
 from agents.intent_agent import intent_agent
@@ -8,7 +8,6 @@ from agents.vision_agent import vision_agent
 from agents.action_agent import action_agent
 from agents.auth_agent import auth_agent
 from core.voice_interface import voice
-from core.credential_manager import credential_manager
 from config.settings import settings
 from clients.appium_client import appium_client
 
@@ -17,19 +16,15 @@ logger = logging.getLogger(__name__)
 class Orchestrator:
     def __init__(self):
         self.running = False
-        self.current_user_id = "00000000-0000-0000-0000-000000000000" # Placeholder for demo
 
     def start(self):
         """Main Life Cycle"""
         logger.info("🚀 Mobile Agent Orchestrator Online")
         
-        # Initialize Appium Driver
-        # In a real scenario, we might want to do this based on user intent (e.g. "open app")
-        # For now, we try to initialize at startup or mock if failed.
-        if not appium_client.initialize_driver():
-            logger.warning("⚠️ Appium Driver failed to initialize. Running in OBSERVATION-ONLY mode (or Mock).")
-            # We continue; maybe the user just wants to chat or will connect later? 
-            # Or we could Prompt the user?
+        # Try to initialize driver
+        driver_ready = appium_client.initialize_driver()
+        if not driver_ready:
+            logger.warning("⚠️ Running in OBSERVATION/MOCK Mode (No Driver)")
             voice.speak("Warning. Mobile driver not connected.")
         
         voice.speak("I am ready. What would you like to do?")
@@ -47,8 +42,10 @@ class Orchestrator:
 
             # 2. Parse Intent
             intent = intent_agent.run(user_command)
+            
+            # Safety Check: Did intent_agent return a Dictionary?
             if not isinstance(intent, dict):
-                logger.error(f"Intent agent returned non-dict: {type(intent)}")
+                logger.error(f"Intent Error: Expected dict, got {type(intent)}")
                 voice.speak("I'm confused.")
                 continue
 
@@ -64,67 +61,86 @@ class Orchestrator:
 
     def execute_task_loop(self, intent: Dict[str, Any]):
         """Execution Loop for a single task"""
-        app_name = intent.get('app', {}).get('name', 'app')
-        voice.speak(f"Okay, opening {app_name}")
+        voice.speak("Processing.")
         
         step = 0
-        max_steps = 10
-        
+        max_steps = 20 # Increased from 10
+        history = []
+
         while step < max_steps:
-            # A. Capture State
-            # Capture real screenshot
-            screenshot_path = appium_client.capture_screenshot("latest_screenshot.png")
+            logger.info(f"--- Step {step + 1}/{max_steps} ---")
             
-            if not screenshot_path or not os.path.exists(screenshot_path):
-                 # Failover for testing without device
-                 if step == 0:
-                     logger.warning("No screenshot captured. Is device connected?")
-                     # voice.speak("I can't see the screen.")
-                     # break or continue to try mock?
-                     # For now, we continue to let VisionAgent handle "file not found" or "black screen"
-                 pass
+            # A. Capture State
+            screenshot_path = appium_client.capture_screenshot("latest_screenshot.png")
+            if not screenshot_path:
+                 logger.error("❌ No screenshot. Is Emulator running?")
+                 break
             
             # B. Analyze Screen
             vision_result = vision_agent.run("latest_screenshot.png")
             
-            # C. Check Security/Auth
-            auth_check = auth_agent.run(vision_result)
-            if auth_check.get('is_auth_screen'):
-                self.handle_auth(vision_result)
-                continue # Re-evaluate after auth handling
-
-            # D. Plan Action
+            # C. Plan Action
             action_plan = action_agent.run(
                 task_goal=intent.get('query', 'navigate'),
-                screen_state=vision_result
+                screen_state=vision_result,
+                previous_actions=history[-3:] # Pass recent history
             )
             
-            # Checks to prevent crash if action_plan is None or not a dict
             if not isinstance(action_plan, dict):
-                 logger.error(f"Action planning returned non-dict: {action_plan}")
+                 logger.error(f"Invalid plan format: {action_plan}")
                  step += 1
                  continue
 
-            # E. Execute Action
-            # Execute real action
-            action_data = action_plan.get('action')
-            if action_data:
-                appium_client.execute_action(action_data)
-                self.perform_action_log(action_data)
+            # D. RESOLVE COORDINATES (Fix for "Tap requested but no coordinates")
+            action_plan = action_agent.resolve_coordinates(action_plan, vision_result)
+
+            # E. Execute
+            appium_client.execute_action(action_plan)
+            
+            # Track history for summary
+            if 'action' in action_plan:
+                history.append(f"Step {step+1}: {action_plan['action'].get('type')} -> {action_plan['action'].get('target')}")
+
+            # Check finish
+            if action_plan.get('action') == 'finish' or action_plan.get('type') == 'finish':
+                voice.speak("Done.")
+                break
+            
+            if isinstance(action_plan.get('action'), dict) and action_plan['action'].get('type') == 'finish':
+                voice.speak("Done.")
+                break
             
             step += 1
-            time.sleep(2)
+            # REMOVED: time.sleep(2) for speed optimization. 
+            # Appium actions usually take enough time that we don't need extra sleep.
+        
+        # End of Loop Summary
+        self.generate_summary(intent.get('query'), history)
+
+    def generate_summary(self, goal, history):
+        """Generate and speak a summary of the session"""
+        if not history:
+            return
+
+        summary_prompt = f"""
+        Goal: {goal}
+        Actions Taken:
+        {history}
+        
+        Summarize what was achieved in 1 short sentence.
+        """
+        try:
+            logger.info("📝 Generating Summary...")
+            # Using gemini_client directly for a quick summary
+            from clients.google_genai_client import gemini_client
+            summary = gemini_client.generate_text(summary_prompt)
+            logger.info(f"📝 Summary: {summary}")
+            voice.speak(f"Summary: {summary}")
+        except Exception as e:
+            logger.error(f"Failed to generate summary: {e}")
 
     def handle_auth(self, screen_state: Dict[str, Any]):
-        """Handle Login Flow"""
         voice.speak("Login screen detected.")
-        # Logic to fetch credentials and auto-fill
-        # creds = credential_manager.get_credential(...)
-        # if creds: fill_form(creds)
         pass
-
-    def perform_action_log(self, action: Dict[str, Any]):
-        """Log action for debug"""
-        logger.info(f"Acting: {action}")
 
 orchestrator = Orchestrator()

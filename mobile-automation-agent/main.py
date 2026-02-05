@@ -16,6 +16,8 @@ def main():
     except KeyboardInterrupt:
         print("\nSee you next time!")
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         print(f"Fatal error: {e}")
         sys.exit(1)
 
