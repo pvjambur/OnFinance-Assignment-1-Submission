@@ -1,0 +1,1 @@
+-- Merged into 001_initial_schema.sql for simplicity

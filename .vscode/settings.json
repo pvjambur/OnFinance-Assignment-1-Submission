@@ -1,0 +1,8 @@
+{
+    "python.analysis.extraPaths": [
+        "./mobile-automation-agent"
+    ],
+    "python.autoComplete.extraPaths": [
+        "./mobile-automation-agent"
+    ]
+}

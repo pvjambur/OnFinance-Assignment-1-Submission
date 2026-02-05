@@ -11,7 +11,7 @@ class ScreenAnalyzer:
         # Initialize PaddleOCR (English, use_angle_cls=True)
         # Note: This loads model into memory.
         try:
-            self.ocr = PaddleOCR(use_angle_cls=True, lang='en', show_log=False)
+            self.ocr = PaddleOCR(use_angle_cls=True, lang='en')
             logger.info("✅ PaddleOCR initialized")
         except Exception as e:
             logger.error(f"Failed to init PaddleOCR: {e}")
@@ -25,7 +25,7 @@ class ScreenAnalyzer:
             return []
 
         try:
-            result = self.ocr.ocr(image_path, cls=True)
+            result = self.ocr.ocr(image_path) # cls=True removed due to incompatibility in newer versions or config
             output = []
             if not result or result[0] is None:
                 return []

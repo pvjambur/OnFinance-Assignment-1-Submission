@@ -8,7 +8,7 @@ def configure_logging():
         "disable_existing_loggers": False,
         "formatters": {
             "plain": {
-                "format": "%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+                "format": "%(message)s",
             },
             "json": {
                 "format": "%(message)s",
@@ -17,15 +17,19 @@ def configure_logging():
         },
         "handlers": {
             "console": {
-                "class": "logging.StreamHandler",
+                "class": "rich.logging.RichHandler",
                 "formatter": "plain",
                 "level": settings.LOG_LEVEL,
+                "rich_tracebacks": True,
+                "show_time": False,
+                "show_path": False
             },
             "file": {
                 "class": "logging.FileHandler",
                 "filename": "app.log",
                 "formatter": "plain",
                 "level": "DEBUG",
+                "encoding": "utf-8"
             },
         },
         "loggers": {

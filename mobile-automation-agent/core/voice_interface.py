@@ -65,12 +65,29 @@ class VoiceInterface:
         # Note: speech_recognition supports whisper if installed, or we use raw API
         # Here we use the simplified Google fallback if whisper lib isn't set up perfectly
         # But let's try to use the library's built-in whisper support if available
+        # Try Whisper API if key exists, else Local
+        if settings.OPENAI_API_KEY and not settings.OPENAI_API_KEY.startswith("sk-proj-"): # invalid key check
+             try:
+                text = self.recognizer.recognize_whisper_api(audio, api_key=settings.OPENAI_API_KEY)
+                logger.info(f"🗣️ User (Whisper API): {text}")
+                return text
+             except Exception as e:
+                logger.warning(f"Whisper API failed ({e}), trying local...")
+
+        return self._transcribe_whisper_local(audio)
+
+    def _transcribe_whisper_local(self, audio) -> str:
+        """Use Local OpenAI Whisper (Free, Offline)"""
         try:
-            text = self.recognizer.recognize_whisper_api(audio, api_key=settings.OPENAI_API_KEY)
-            logger.info(f"🗣️ User (Whisper): {text}")
+            # Requires: pip install openai-whisper
+            text = self.recognizer.recognize_whisper(audio, model="base")
+            logger.info(f"🗣️ User (Whisper Local): {text}")
             return text
+        except AttributeError:
+             logger.warning("Local Whisper not available/installed, falling back to Google")
+             return self._transcribe_google(audio)
         except Exception as e:
-            logger.warning(f"Whisper API failed ({e}), falling back to Google")
+            logger.error(f"Whisper Local Error: {e}")
             return self._transcribe_google(audio)
 
     def _transcribe_google(self, audio) -> str:
